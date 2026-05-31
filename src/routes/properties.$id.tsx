@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { properties, formatPrice } from "@/lib/properties";
+import { properties, formatPrice, formatArea } from "@/lib/properties";
 import { agents } from "@/lib/agents";
 import { PropertyMap } from "@/components/site/PropertyMap";
 import { MortgageCalculator } from "@/components/site/MortgageCalculator";
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/properties/$id")({
   },
   head: ({ loaderData }) => ({
     meta: loaderData ? [
-      { title: `${loaderData.property.title} — Maison Estate` },
+      { title: "Maison Estate" },
       { name: "description", content: loaderData.property.description },
       { property: "og:title", content: `${loaderData.property.title} — ${loaderData.property.location}` },
       { property: "og:description", content: loaderData.property.description },
@@ -36,7 +36,11 @@ export const Route = createFileRoute("/properties/$id")({
 function PropertyDetail() {
   const { property } = Route.useLoaderData();
   const [active, setActive] = useState(0);
-  const agent = agents[Math.floor(Math.random() * agents.length)] ?? agents[0];
+  const agent = agents.find((a) => {
+    if (["Mumbai", "Pune", "Lonavala"].includes(property.city)) return a.id === "priya-mehta";
+    if (["Bangalore", "Hyderabad", "Chennai", "Goa"].includes(property.city)) return a.id === "arjun-kapoor";
+    return a.id === "rajesh-sharma";
+  }) ?? agents[0];
 
   return (
     <>
@@ -72,7 +76,7 @@ function PropertyDetail() {
                 <p className="font-display text-5xl">{formatPrice(property.price)}</p>
               </div>
               <div className="grid grid-cols-3 gap-8">
-                {[["Bedrooms", property.beds], ["Bathrooms", property.baths], ["Interior", `${property.area.toLocaleString()} sqft`]].map(([l, v]) => (
+                {[["Bedrooms", property.beds], ["Bathrooms", property.baths], ["Interior", formatArea(property.area)]].map(([l, v]) => (
                   <div key={l as string}>
                     <p className="text-[10px] tracking-luxe uppercase text-muted-foreground">{l}</p>
                     <p className="font-display text-2xl mt-1">{v}</p>
@@ -85,6 +89,22 @@ function PropertyDetail() {
 
             <p className="text-[10px] tracking-luxe uppercase text-gold mb-4">About this residence</p>
             <p className="font-display text-2xl md:text-3xl leading-snug">{property.description}</p>
+
+            {/* PROPERTY DETAILS */}
+            <div className="mt-16 grid sm:grid-cols-2 gap-8">
+              <div>
+                <p className="text-[10px] tracking-luxe uppercase text-gold mb-3">Location</p>
+                <p className="text-foreground/80">{property.location}</p>
+                <p className="text-foreground/80">{property.city}, {property.state}</p>
+              </div>
+              <div>
+                <p className="text-[10px] tracking-luxe uppercase text-gold mb-3">Possession</p>
+                <p className="text-foreground/80">{property.possession}</p>
+                {property.reraId && (
+                  <p className="text-foreground/60 text-sm mt-1">RERA: {property.reraId}</p>
+                )}
+              </div>
+            </div>
 
             <div className="mt-16">
               <p className="text-[10px] tracking-luxe uppercase text-gold mb-6">Distinguishing Features</p>
@@ -137,11 +157,44 @@ function PropertyDetail() {
               <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Inquiry sent. A partner will contact you in confidence."); }}>
                 <input required placeholder="Your name" className="w-full bg-transparent border-b border-cream/30 py-2 focus:border-gold outline-none text-sm placeholder:text-cream/50" />
                 <input required type="email" placeholder="Email address" className="w-full bg-transparent border-b border-cream/30 py-2 focus:border-gold outline-none text-sm placeholder:text-cream/50" />
-                <input placeholder="Phone (optional)" className="w-full bg-transparent border-b border-cream/30 py-2 focus:border-gold outline-none text-sm placeholder:text-cream/50" />
+                <input placeholder="Phone (+91)" className="w-full bg-transparent border-b border-cream/30 py-2 focus:border-gold outline-none text-sm placeholder:text-cream/50" />
                 <textarea rows={3} placeholder="Your inquiry" className="w-full bg-transparent border-b border-cream/30 py-2 focus:border-gold outline-none text-sm placeholder:text-cream/50 resize-none" />
                 <button className="w-full bg-gold text-ink py-4 text-xs tracking-luxe uppercase hover:bg-cream transition-colors mt-4">Request Private Viewing</button>
               </form>
               <p className="text-xs text-cream/50 mt-4 text-center">{agent.phone}</p>
+            </div>
+
+            {/* QUICK FACTS */}
+            <div className="mt-6 border border-border p-6">
+              <p className="text-[10px] tracking-luxe uppercase text-gold mb-4">Quick Facts</p>
+              <dl className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <dt className="text-muted-foreground">Type</dt>
+                  <dd className="font-medium">{property.type}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-muted-foreground">City</dt>
+                  <dd className="font-medium">{property.city}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-muted-foreground">State</dt>
+                  <dd className="font-medium">{property.state}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-muted-foreground">Possession</dt>
+                  <dd className="font-medium">{property.possession}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-muted-foreground">Price</dt>
+                  <dd className="font-medium">{formatPrice(property.price)}</dd>
+                </div>
+                {property.reraId && (
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">RERA ID</dt>
+                    <dd className="font-medium text-xs">{property.reraId}</dd>
+                  </div>
+                )}
+              </dl>
             </div>
           </aside>
         </div>

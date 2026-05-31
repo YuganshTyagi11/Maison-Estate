@@ -4,9 +4,9 @@ import { agents } from "@/lib/agents";
 export const Route = createFileRoute("/agents")({
   head: () => ({
     meta: [
-      { title: "Our Partners — Maison Estate" },
-      { name: "description", content: "Meet the senior advisors of Maison Estate — partners with decades of experience brokering the world's most distinguished residences." },
-      { property: "og:title", content: "Our Partners — Maison Estate" },
+      { title: "Maison Estate" },
+      { name: "description", content: "Meet the senior advisors of Maison Estate — partners with decades of experience brokering India's most distinguished residences." },
+      { property: "og:title", content: "Our Partners — Maison Estate India" },
       { property: "og:description", content: "Advisors of singular conviction." },
     ],
   }),
@@ -23,7 +23,7 @@ function AgentsPage() {
             Advisors of <em className="italic text-gold">singular</em> conviction
           </h1>
           <p className="mt-8 max-w-2xl text-cream/75 text-lg">
-            Each partner brings decades of relationships, taste, and discretion to a single purpose: matching consequential homes to the people who will inhabit them next.
+            Each partner brings decades of relationships, taste, and discretion to a single purpose: matching India's most consequential homes to the people who will inhabit them next.
           </p>
         </div>
       </section>
@@ -50,6 +50,11 @@ function AgentsPage() {
                     <p className="text-[10px] tracking-luxe uppercase text-muted-foreground mb-1">Languages</p>
                     <p className="font-display text-2xl">{a.languages.join(" · ")}</p>
                   </div>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-border">
+                  <p className="text-[10px] tracking-luxe uppercase text-muted-foreground mb-1">Specialization</p>
+                  <p className="text-foreground/80">{a.specialization}</p>
                 </div>
 
                 <div className="mt-10 flex flex-wrap gap-4">

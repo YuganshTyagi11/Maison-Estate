@@ -1,7 +1,3 @@
-import a1 from "@/assets/agent-1.jpg";
-import a2 from "@/assets/agent-2.jpg";
-import a3 from "@/assets/agent-3.jpg";
-
 export type Agent = {
   id: string;
   name: string;
@@ -12,40 +8,44 @@ export type Agent = {
   languages: string[];
   email: string;
   phone: string;
+  specialization: string;
 };
 
 export const agents: Agent[] = [
   {
-    id: "isabella-moreau",
-    name: "Isabella Moreau",
-    title: "Senior Partner, Europe",
-    image: a1,
-    bio: "With 18 years brokering trophy estates from the Côte d'Azur to Lake Como, Isabella has closed over $1.4B in private transactions.",
-    sales: "$1.4B+ closed",
-    languages: ["English", "French", "Italian"],
-    email: "isabella@maison.estate",
-    phone: "+33 1 42 60 30 30",
+    id: "rajesh-sharma",
+    name: "Rajesh Sharma",
+    title: "Senior Partner, North India",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=750&fit=crop&crop=face",
+    bio: "With 20 years of experience in ultra-luxury real estate across Delhi NCR, Jaipur, and Chandigarh, Rajesh has facilitated over ₹3,200 Cr in private transactions. His network of industrialists and business families is unmatched.",
+    sales: "₹3,200 Cr+ closed",
+    languages: ["Hindi", "English", "Punjabi"],
+    email: "rajesh@maisonestate.in",
+    phone: "+91 98101 23456",
+    specialization: "Lutyens Delhi, Gurugram Ultra-Luxury",
   },
   {
-    id: "alexander-hayes",
-    name: "Alexander Hayes",
-    title: "Managing Director, Americas",
-    image: a2,
-    bio: "Alexander leads our North American practice, specializing in ultra-prime new development and architecturally significant residences.",
-    sales: "$980M+ closed",
-    languages: ["English", "Spanish"],
-    email: "alexander@maison.estate",
-    phone: "+1 310 555 0142",
+    id: "priya-mehta",
+    name: "Priya Mehta",
+    title: "Managing Director, West India",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&h=750&fit=crop&crop=face",
+    bio: "Priya leads our Mumbai and Pune practice, specializing in sea-facing penthouses, heritage bungalows, and luxury developments in South Mumbai. Former investment banker at Goldman Sachs.",
+    sales: "₹4,500 Cr+ closed",
+    languages: ["Hindi", "English", "Marathi", "Gujarati"],
+    email: "priya@maisonestate.in",
+    phone: "+91 98200 34567",
+    specialization: "South Mumbai, Bandra, Juhu",
   },
   {
-    id: "sofia-castellan",
-    name: "Sofia Castellan",
-    title: "Director, Private Clients",
-    image: a3,
-    bio: "A trusted advisor to family offices and private collectors, Sofia curates discreet acquisitions across the most sought-after enclaves worldwide.",
-    sales: "$760M+ closed",
-    languages: ["English", "Italian", "Portuguese"],
-    email: "sofia@maison.estate",
-    phone: "+39 02 8050 5050",
+    id: "arjun-kapoor",
+    name: "Arjun Kapoor",
+    title: "Director, South India & Goa",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=750&fit=crop&crop=face",
+    bio: "Arjun manages our Bangalore, Hyderabad, Chennai, and Goa portfolios. A trusted advisor to tech founders and NRIs, he specializes in heritage properties and modern smart homes.",
+    sales: "₹2,800 Cr+ closed",
+    languages: ["Hindi", "English", "Kannada", "Tamil"],
+    email: "arjun@maisonestate.in",
+    phone: "+91 98450 45678",
+    specialization: "Bangalore, Goa Heritage, Hyderabad",
   },
 ];

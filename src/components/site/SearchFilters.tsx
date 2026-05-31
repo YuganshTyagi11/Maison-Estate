@@ -1,9 +1,26 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
-const types = ["Any", "Villa", "Penthouse", "Estate", "Chalet"];
-const locations = ["Anywhere", "Los Angeles", "New York", "Como", "Saint-Tropez", "Aspen", "Loire"];
-const budgets = ["Any", "$5M+", "$10M+", "$20M+"];
+const types = ["Any", "Villa", "Penthouse", "Farmhouse", "Haveli", "Bungalow", "Duplex"];
+const locations = [
+  "Anywhere",
+  "Mumbai",
+  "New Delhi",
+  "Gurugram",
+  "Bangalore",
+  "Goa",
+  "Jaipur",
+  "Hyderabad",
+  "Pune",
+  "Chennai",
+  "Kolkata",
+  "Udaipur",
+  "Shimla",
+  "Lonavala",
+  "Amritsar",
+  "Chandigarh",
+];
+const budgets = ["Any", "₹5 Cr+", "₹10 Cr+", "₹25 Cr+", "₹50 Cr+", "₹100 Cr+"];
 
 export function SearchFilters({ variant = "hero" }: { variant?: "hero" | "page" }) {
   const navigate = useNavigate();

@@ -14,21 +14,23 @@ export const Route = createFileRoute("/properties")({
   }),
   head: () => ({
     meta: [
-      { title: "The Collection — Maison Estate" },
-      { name: "description", content: "Browse our private collection of villas, penthouses, estates, and chalets across the world's most coveted enclaves." },
-      { property: "og:title", content: "The Collection — Maison Estate" },
-      { property: "og:description", content: "Private collection of distinguished residences worldwide." },
+      { title: "Maison Estate" },
+      { name: "description", content: "Browse our private collection of villas, penthouses, havelis, and estates across India's most coveted addresses." },
+      { property: "og:title", content: "The Collection — Maison Estate India" },
+      { property: "og:description", content: "Private collection of distinguished Indian residences." },
     ],
   }),
   component: PropertiesPage,
 });
 
-const TYPES = ["All", "Villa", "Penthouse", "Estate", "Chalet"];
+const TYPES = ["All", "Villa", "Penthouse", "Farmhouse", "Haveli", "Bungalow", "Duplex"];
 const BUDGETS = [
   { label: "Any", min: 0 },
-  { label: "$5M+", min: 5_000_000 },
-  { label: "$10M+", min: 10_000_000 },
-  { label: "$20M+", min: 20_000_000 },
+  { label: "₹5 Cr+", min: 5_00_00_000 },
+  { label: "₹10 Cr+", min: 10_00_00_000 },
+  { label: "₹25 Cr+", min: 25_00_00_000 },
+  { label: "₹50 Cr+", min: 50_00_00_000 },
+  { label: "₹100 Cr+", min: 100_00_00_000 },
 ];
 
 function PropertiesPage() {
@@ -37,19 +39,29 @@ function PropertiesPage() {
   const [budget, setBudget] = useState(initial.budget ?? "Any");
   const [query, setQuery] = useState(initial.location && initial.location !== "Anywhere" ? initial.location : "");
   const [sort, setSort] = useState<"featured" | "low" | "high">("featured");
+  const [stateFilter, setStateFilter] = useState("All");
+
+  const states = useMemo(() => {
+    const s = new Set(properties.map((p) => p.state));
+    return ["All", ...Array.from(s).sort()];
+  }, []);
 
   const list = useMemo(() => {
     const minBudget = BUDGETS.find((b) => b.label === budget)?.min ?? 0;
     let out = properties.filter((p) => {
       if (type !== "All" && p.type !== type) return false;
       if (p.price < minBudget) return false;
-      if (query && !`${p.location} ${p.city} ${p.country} ${p.title}`.toLowerCase().includes(query.toLowerCase())) return false;
+      if (stateFilter !== "All" && p.state !== stateFilter) return false;
+      if (query) {
+        const searchable = `${p.location} ${p.city} ${p.state} ${p.title} ${p.country}`.toLowerCase();
+        if (!searchable.includes(query.toLowerCase())) return false;
+      }
       return true;
     });
     if (sort === "low") out = [...out].sort((a, b) => a.price - b.price);
     if (sort === "high") out = [...out].sort((a, b) => b.price - a.price);
     return out;
-  }, [type, budget, query, sort]);
+  }, [type, budget, query, sort, stateFilter]);
 
   return (
     <>
@@ -60,7 +72,7 @@ function PropertiesPage() {
             Residences in our <em className="italic text-gold">portfolio</em>
           </h1>
           <p className="mt-8 max-w-2xl text-cream/75 text-lg">
-            {properties.length} private listings across {new Set(properties.map((p) => p.country)).size} countries. All available by appointment.
+            {properties.length} private listings across {new Set(properties.map((p) => p.state)).size} states. All RERA verified. Available by appointment.
           </p>
         </div>
       </section>
@@ -71,10 +83,14 @@ function PropertiesPage() {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by city or country"
+              placeholder="Search by city, state, or property name"
               className="bg-transparent border-b border-border focus:border-gold outline-none py-2 px-1 text-sm min-w-[220px] placeholder:text-muted-foreground"
             />
-            <div className="flex gap-1">
+            <select value={stateFilter} onChange={(e) => setStateFilter(e.target.value)}
+              className="bg-transparent border-b border-border focus:border-gold outline-none py-2 text-sm">
+              {states.map((s) => <option key={s}>{s}</option>)}
+            </select>
+            <div className="flex gap-1 flex-wrap">
               {TYPES.map((t) => (
                 <button key={t} onClick={() => setType(t)}
                   className={`px-4 py-2 text-[10px] tracking-luxe uppercase border ${type === t ? "bg-ink text-cream border-ink" : "border-border hover:border-gold"}`}>
@@ -99,22 +115,28 @@ function PropertiesPage() {
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           {list.length === 0 ? (
-            <p className="text-center py-32 text-muted-foreground">No residences match your criteria.</p>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-              {list.map((p, i) => <PropertyCard key={p.id} property={p} index={i} />)}
+            <div className="text-center py-32">
+              <p className="font-display text-3xl text-muted-foreground mb-4">No residences match your criteria</p>
+              <p className="text-sm text-muted-foreground">Try adjusting your filters or search a different city</p>
             </div>
+          ) : (
+            <>
+              <p className="text-sm text-muted-foreground mb-8">{list.length} {list.length === 1 ? "residence" : "residences"} found</p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                {list.map((p, i) => <PropertyCard key={p.id} property={p} index={i} />)}
+              </div>
+            </>
           )}
 
           <div className="mt-24">
             <div className="flex items-end justify-between mb-6">
               <div>
-                <p className="text-[10px] tracking-luxe uppercase text-gold mb-2">Worldwide</p>
+                <p className="text-[10px] tracking-luxe uppercase text-gold mb-2">Pan India</p>
                 <h2 className="font-display text-3xl md:text-4xl">Explore our locations</h2>
               </div>
               <p className="text-xs text-muted-foreground">{list.length} estates shown</p>
             </div>
-            <PropertyMap pins={list.length ? list.map((p) => ({ lat: p.lat, lng: p.lng, label: p.title })) : [{ lat: 45.98, lng: 9.25, label: "Worldwide" }]} height={520} />
+            <PropertyMap pins={list.length ? list.map((p) => ({ lat: p.lat, lng: p.lng, label: p.title })) : [{ lat: 20.5937, lng: 78.9629, label: "India" }]} height={520} />
             <p className="mt-3 text-xs text-muted-foreground">Total portfolio value: <span className="text-ink font-medium">{formatPrice(list.reduce((s, p) => s + p.price, 0))}</span></p>
           </div>
         </div>

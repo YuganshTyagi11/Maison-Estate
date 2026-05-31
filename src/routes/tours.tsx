@@ -4,10 +4,10 @@ import { properties } from "@/lib/properties";
 export const Route = createFileRoute("/tours")({
   head: () => ({
     meta: [
-      { title: "Virtual Tours — Maison Estate" },
-      { name: "description", content: "Step inside our portfolio. Cinematic 3D walkthroughs of the world's most distinguished private residences." },
-      { property: "og:title", content: "Virtual Tours — Maison Estate" },
-      { property: "og:description", content: "Cinematic 3D walkthroughs of distinguished residences." },
+      { title: "Maison Estate" },
+      { name: "description", content: "Step inside our portfolio. Cinematic 3D walkthroughs of India's most distinguished private residences." },
+      { property: "og:title", content: "Virtual Tours — Maison Estate India" },
+      { property: "og:description", content: "Cinematic 3D walkthroughs of distinguished Indian residences." },
     ],
   }),
   component: ToursPage,

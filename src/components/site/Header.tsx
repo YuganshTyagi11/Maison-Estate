@@ -78,6 +78,13 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="mt-2 text-center px-5 py-3 border border-gold text-xs tracking-luxe uppercase hover:bg-gold hover:text-ink transition-colors"
+            >
+              Book a Viewing
+            </Link>
           </nav>
         </div>
       )}

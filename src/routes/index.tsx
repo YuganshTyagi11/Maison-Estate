@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import hero from "@/assets/hero-mansion.jpg";
 import { properties } from "@/lib/properties";
+
+const hero = "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop";
 import { agents } from "@/lib/agents";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { MortgageCalculator } from "@/components/site/MortgageCalculator";
@@ -9,11 +10,11 @@ import { SearchFilters } from "@/components/site/SearchFilters";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Maison Estate — Private Brokerage of Distinguished Residences" },
-      { name: "description", content: "Discover the world's most distinguished residences. Curated villas, penthouses, and estates from Bel Air to Lake Como." },
-      { property: "og:title", content: "Maison Estate — Distinguished Residences" },
-      { property: "og:description", content: "A private global brokerage. Discretion, expertise, and global reach since 1987." },
-      { property: "og:image", content: hero },
+      { title: "Maison Estate" },
+      { name: "description", content: "Discover India's most distinguished residences. Curated villas, penthouses, havelis, and estates from Mumbai to Udaipur." },
+      { property: "og:title", content: "Maison Estate — Distinguished Indian Residences" },
+      { property: "og:description", content: "India's premier private brokerage. Discretion, expertise, and nationwide reach since 2005." },
+      { property: "og:image", content: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=630&fit=crop" },
     ],
   }),
   component: Home,
@@ -32,13 +33,13 @@ function Home() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10 pb-32 pt-40 w-full text-cream">
-          <p className="text-[10px] tracking-luxe uppercase text-gold mb-6 animate-fade-up">Est. 1987 · Private Brokerage</p>
+          <p className="text-[10px] tracking-luxe uppercase text-gold mb-6 animate-fade-up">Est. 2005 · India's Premier Private Brokerage</p>
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl max-w-5xl leading-[1.02] animate-fade-up" style={{ animationDelay: "120ms" }}>
             Residences for those who <em className="italic text-gold/95">curate</em> a life of consequence.
           </h1>
           <div className="mt-10 max-w-3xl animate-fade-up" style={{ animationDelay: "240ms" }}>
             <p className="text-cream/85 text-lg leading-relaxed">
-              From Bel Air canyons to Loire châteaux — a private collection of the world's most considered homes, represented with absolute discretion.
+              From Lutyens Delhi to Goa's coastline, from Mumbai's Marine Drive to Jaipur's royal quarters — a private collection of India's most considered homes, represented with absolute discretion.
             </p>
           </div>
 
@@ -56,10 +57,10 @@ function Home() {
       <section className="border-y border-border bg-cream">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 divide-x divide-border">
           {[
-            ["$4.2B", "Lifetime sales"],
-            ["38", "Countries"],
-            ["1,200+", "Estates sold"],
-            ["37 yrs", "Of discretion"],
+            ["₹10,500 Cr+", "Lifetime Sales"],
+            ["16", "Cities"],
+            ["850+", "Estates Sold"],
+            ["19 Yrs", "Of Discretion"],
           ].map(([v, l]) => (
             <div key={l} className="px-6 py-12 text-center">
               <p className="font-display text-4xl md:text-5xl text-ink">{v}</p>
@@ -98,7 +99,7 @@ function Home() {
             </h2>
             <div className="gold-divider w-24 my-10" />
             <p className="text-cream/80 text-lg leading-relaxed">
-              For nearly four decades, Maison Estate has represented residences too consequential for public listing. Every introduction is private. Every viewing, by invitation. Every transaction, a confidence kept.
+              For nearly two decades, Maison Estate has represented residences too consequential for public listing — from heritage havelis in Rajasthan to sea-facing penthouses in Mumbai. Every introduction is private. Every viewing, by invitation. Every transaction, a confidence kept.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link to="/agents" className="px-8 py-4 bg-gold text-ink text-xs tracking-luxe uppercase hover:bg-cream transition-colors">Meet Our Partners</Link>
@@ -141,7 +142,7 @@ function Home() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="text-[10px] tracking-luxe uppercase text-gold mb-3">Private Banking</p>
-            <h2 className="font-display text-4xl md:text-6xl leading-tight">Calibrate your acquisition</h2>
+            <h2 className="font-display text-4xl md:text-6xl leading-tight">Calculate your EMI</h2>
             <div className="gold-divider w-24 mx-auto mt-8" />
           </div>
           <MortgageCalculator />
