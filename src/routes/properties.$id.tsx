@@ -53,7 +53,7 @@ function PropertyDetail() {
       {/* GALLERY THUMBS */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex gap-4 overflow-x-auto">
-          {property.gallery.map((g, i) => (
+          {property.gallery.map((g: string, i: number) => (
             <button key={i} onClick={() => setActive(i)}
               className={`shrink-0 w-32 h-20 overflow-hidden border-2 transition-colors ${i === active ? "border-gold" : "border-transparent opacity-60 hover:opacity-100"}`}>
               <img src={g} alt="" className="w-full h-full object-cover" loading="lazy" />
@@ -89,7 +89,7 @@ function PropertyDetail() {
             <div className="mt-16">
               <p className="text-[10px] tracking-luxe uppercase text-gold mb-6">Distinguishing Features</p>
               <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
-                {property.features.map((f) => (
+                {property.features.map((f: string) => (
                   <li key={f} className="flex items-center gap-3 border-b border-border pb-3 text-sm">
                     <span className="w-1.5 h-1.5 bg-gold rounded-full" /> {f}
                   </li>
